@@ -1,6 +1,8 @@
 struct fenwick {
 	int arr[MAXN];
 	
+	fenwick() {memset(arr,0,sizeof arr);}
+	
 	void incr(int x, int by) {
 		for(;x<MAXN;x+=(x&(-x))) {
 			arr[x]+=by;

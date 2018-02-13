@@ -29,6 +29,7 @@ using namespace std;
 #define FORN(i, n) for(int i=0;i<(n);i++)
 #define gc getchar
 #define IO ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0)
+#define rep(i, l, r) for ((i) = (l); (i) < (r); (i)++)
 
 typedef long long ll;
 typedef unsigned long long ull;
@@ -39,14 +40,19 @@ const double PI=acos(-1);
 template<typename T> T getint() {
 	T val=0;
 	char c;
-	while((c=gc()) && !(c>='0' && c<='9'));
+	
+	bool neg=false;
+	while((c=gc()) && !(c>='0' && c<='9')) {
+		neg|=c=='-';
+	}
 
 	do {
 		val=(val*10)+c-'0';
 	} while((c=gc()) && (c>='0' && c<='9'));
 
-	return val;
+	return val*(neg?-1:1);
 }
+
 
 
 
