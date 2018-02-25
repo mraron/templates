@@ -11,7 +11,7 @@ struct fenwick {
 	
 	int sum(int x) {
 		int sum=0;
-		for(;x;x-=(x&(-x))) {
+		for(;x>0;x-=(x&(-x))) {
 			sum+=arr[x];
 		}
 		
