@@ -1,15 +1,15 @@
 - Heap
 - treap
 - hld
-- lca
+- lca						DONE
 - merge sort tree
 - wavelet tree
 - persistent segtree
 - fenwick range 
-- Lichao
+- Lichao					DONE
 - Suffix tree
 - szebb suffix array
-- log CHT
+- log CHT					DONE
 - Biconnected
 - Strongly
 - Geometria
@@ -17,7 +17,7 @@
 - KMP
 - Z FUNCTION
 - Palindromic Tree
-- Centroid Decomposition
+- Centroid Decomposition	DONE
 - KUHN algo
 - Splay tree
 - sieve
