@@ -1,3 +1,9 @@
+/*
+ID: noszaly1
+TASK: {TASK}
+LANG: C++11               
+*/
+
 //Noszály Áron 10o Debreceni Fazekas Mihály Gimnázium
 
 #include<iostream>
@@ -26,10 +32,9 @@ using namespace std;
 #define xx first
 #define yy second
 #define sz(x) (int)(x).size()
-#define FORN(i, n) for(int i=0;i<(n);i++)
 #define gc getchar
 #define IO ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0)
-#define rep(i, l, r) for ((i) = (l); (i) < (r); (i)++)
+#define mp make_pair
 
 typedef long long ll;
 typedef unsigned long long ull;
@@ -53,11 +58,10 @@ template<typename T> T getint() {
 	return val*(neg?-1:1);
 }
 
-
-
-
 int main() {
 	IO;
+	freopen("{TASK}.in", "r", stdin);
+	freopen("{TASK}.out", "w", stdout);
 	
 	return 0;
 }

@@ -2,7 +2,7 @@ int par[MAXN], sz[MAXN];
 
 void init() {
 	memset(par, -1, sizeof par);
-	FORN(i, MAXN) sz[i]=1;
+	for(int i=0;i<MAXN;++i) sz[i]=1;
 }
 
 int get(int x) {
