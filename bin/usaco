@@ -1,0 +1,5 @@
+mkdir $1
+cd $1
+cp ~/prog/templates/template.cpp $1.cpp
+find . -type f -exec sed -i 's/{TASK}/'"$1"'/g'  {} +
+touch $1.in

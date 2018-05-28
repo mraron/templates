@@ -1,0 +1,1 @@
+./$(basename `pwd`) && cat $(basename `pwd`).out
