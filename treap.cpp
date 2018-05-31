@@ -9,7 +9,6 @@ struct Treap {
 	
 	Treap(int item) : L(NULL), R(NULL) {
 		key=item;
-		val=v;
 		pri=rand();
 	}
 };
