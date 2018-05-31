@@ -73,6 +73,17 @@ void erase(pTreap& root, int key) {
 	update(root);
 }
 
+int meret(pTreap root) {
+	if(root==NULL) return 0;
+	return root->sz;
+}
+
+pTreap kthquery(pTreap& root, int k) {
+	if(meret(root->L)==k-1) return root;
+	else if(meret(root->L)<k-1) return kthquery(root->R, k-meret(root->L)-1);
+	return kthquery(root->L, k);
+}
+
 void print(pTreap root) {
 	if(root==NULL) return ;
 	print(root->L);
