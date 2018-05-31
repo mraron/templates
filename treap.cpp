@@ -2,14 +2,12 @@
 struct Treap {
 	int key, pri;
 	int sz;
-	int sum;
-	int val;
 	
 	Treap *L,*R;
 	
 	Treap() {}
 	
-	Treap(int item, int v) : L(NULL), R(NULL) {
+	Treap(int item) : L(NULL), R(NULL) {
 		key=item;
 		val=v;
 		pri=rand();
@@ -22,7 +20,6 @@ void update(pTreap& root) {
 	if(root==NULL) return ;
 	
 	root->sz=(root->L==NULL?0:root->L->sz)+(root->R==NULL?0:root->R->sz)+1;
-	root->sum=(root->L==NULL?0:root->L->sum)+(root->R==NULL?0:root->R->sum)+root->val;
 }
 
 void split(pTreap root, int key, pTreap& L, pTreap& R) {
@@ -76,21 +73,6 @@ void erase(pTreap& root, int key) {
 	
 	update(root);
 }
-
-
-
-void query(pTreap& root, int id, int & ans) {
-	if(root==NULL) return ;
-	
-	if(id < root->key) {
-		query(root->L, id, ans);
-	}else {
-		if(root->L!=NULL) ans+=root->L->sum;
-		ans+=root->val;
-		query(root->R, id, ans);
-	}
-}
-
 
 void print(pTreap root) {
 	if(root==NULL) return ;
