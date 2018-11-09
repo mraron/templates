@@ -1,15 +1,18 @@
-const int maxn=100001, hgt=22;
-int par[maxn], b[maxn], lvl[maxn];
-int dp[maxn][hgt];
+const int MAXN=100001, hgt=22;
+// to make it compatible with hld implementation we also calculate sz
+int par[MAXN], b[MAXN], lvl[MAXN], sz[MAXN];
+int dp[MAXN][hgt];
 
 void dfs_lca(int x, int p=-1, int lev=0) {
 	b[x]=1;
 	par[x]=p;
 	lvl[x]=lev;
+	sz[x]=1;
 	
 	for(auto i:adj[x]) {
 		if(!b[i]) {
 			dfs_lca(i,x,lev+1);
+			sz[x]+=sz[i];
 		}
 	}
 	
