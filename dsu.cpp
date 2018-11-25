@@ -15,7 +15,10 @@ void merge(int x, int y) {
 	
 	if(px==py) return ;
 	
-	if(sz[px]>sz[py]) swap(px, py);
+	if(sz[px]>sz[py]) {
+		swap(px, py);
+		swap(x, y); //:) lyft
+	}
 	
 	par[px]=py;
 	sz[py]+=sz[px];

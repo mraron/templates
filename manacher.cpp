@@ -14,7 +14,7 @@ vector<int> manacher(string t) {
 	
 	for(int i=0;i<sz(t);++i) {
 		int mirror=c-(i-c);
-		if(p[mirror]<r-i) {
+		if(mirror>=0 && p[mirror]<r-i) {
 			p[i]=p[mirror];
 		}else {
 			p[i]=r-i;
