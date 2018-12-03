@@ -1,43 +1,76 @@
-const int MAXN=1001;
+void print_suffix_array(vector<int>& sarr, string& t) {
+	for(auto i:sarr) {
+		cout<<t.substr(i)<<"\n";
+	}
+}
 
-string t;
-int sarr[MAXN], rang[MAXN], trang[MAXN];
-
-int n;
-
-void suffix_array() {
+vector<int> suffix_array(string& t) {
+	vector<int> rang(sz(t)), temp_rang(sz(t)), sarr(sz(t));
+	vector<int> xx(sz(t)), yy(sz(t));
 	for(int i=0;i<sz(t);++i) {
 		rang[i]=t[i];
 		sarr[i]=i;
 	}
 	
-	for(int j=0;(1<<j)<sz(t);++j) {
-		sort(sarr, sarr+sz(t), [&](int a, int b) -> bool {
-			int p1=rang[a], p2=(a+(1<<j)>=sz(t))?0:rang[a+(1<<j)];
-			int q1=rang[b], q2=(b+(1<<j)>=sz(t))?0:rang[b+(1<<j)];
-			if(p1==q1) {
-				if(p2==q2) {
+	for(int j=1;j<sz(t);j*=2) {
+		for(int i=0;i<sz(t);++i) {
+			xx[sarr[i]]=rang[sarr[i]];
+			yy[sarr[i]]=(sarr[i]+j>=sz(t))?0:rang[sarr[i]+j];
+		}
+		
+		sort(sarr.begin(), sarr.end(), [xx, yy](int a, int b) -> bool {
+			if(xx[a]==xx[b]) {
+				if(yy[a]==yy[b]) {
 					return a>b;
 				}
-				return p2<q2;
+				return yy[a]<yy[b];
 			}
 		
 		
-			return p1<q1;
+			return xx[a]<xx[b];
 		});
 		
-		trang[sarr[0]]=0;
-		for(int i=1;i<sz(t);++i) {
-			int bef1=rang[sarr[i-1]], bef2=(sarr[i-1]+(1<<j)>=sz(t))?0:rang[sarr[i-1]+(1<<j)];
-			int curr1=rang[sarr[i]], curr2=(sarr[i]+(1<<j)>=sz(t))?0:rang[sarr[i]+(1<<j)];
-			
-			if(bef1==curr1 && bef2==curr2) {
-				trang[sarr[i]]=trang[sarr[i-1]];
+		temp_rang[sarr[0]]=0;
+		for(int i=1;i<sz(t);++i) {			
+			if(xx[sarr[i-1]]==xx[sarr[i]] && yy[sarr[i-1]]==yy[sarr[i]]) {
+				temp_rang[sarr[i]]=temp_rang[sarr[i-1]];
 			}else {
-				trang[sarr[i]]=trang[sarr[i-1]]+1;
+				temp_rang[sarr[i]]=temp_rang[sarr[i-1]]+1;
 			}
 		}
 		
-		for(int i=0;i<sz(t);++i) rang[i]=trang[i];
+		rang.swap(temp_rang);
+		
 	}
+	
+	return sarr;
+}
+
+
+
+vector<int> calc_lcp(string& t, vector<int>& sarr) {
+	vector<int> inv(sz(t));
+	for(int i=0;i<sz(t);++i) {
+		inv[sarr[i]]=i;
+	}
+	
+	vector<int> lcp(sz(t));
+
+	int k=0;
+	for(int i=0;i<sz(t);++i) {
+		if(inv[i]==sz(t)-1) {
+			k=0;
+			continue ;
+		}
+		
+		int j=sarr[inv[i]+1];
+		
+		while(i+k<sz(t) && j+k<sz(t) && t[i+k]==t[j+k]) k++;
+		
+		lcp[inv[i]]=k;
+		
+		if(k>0) k--;
+	}
+	
+	return lcp;
 }
