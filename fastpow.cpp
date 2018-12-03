@@ -2,6 +2,7 @@
 const int mod=1e9+7;
 template<typename T> 
 T fastpow(T x, int a) {
+	if(a==0) return 1;	
 	if(a==1) return x;
 	
 	T fele=fastpow(x, a/2);
@@ -14,6 +15,7 @@ T fastpow(T x, int a) {
 
 template<typename T> 
 T fastpow(T x, int a, T mod) {
+	if(a==0) return 1;
 	if(a==1) return x;
 	
 	T fele=fastpow(x, a/2, mod);
