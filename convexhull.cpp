@@ -45,6 +45,7 @@ vector<pt> hull(vector<pt> pts) {
 	hull.pb(pts[1]);
 	
 	for(int i=2;i<pts.size();++i) {
+		hull.pb(pts[i]);
 		while(hull.size()>3 && ccw(hull[hull.size()-3], hull[hull.size()-2], hull[hull.size()-1])<0) {
 			pt tmp=hull.back();
 			hull.pop_back();

@@ -36,6 +36,12 @@ using namespace std;
 #define IO ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0)
 #define mp make_pair
 
+#ifndef ONLINE_JUDGE
+#  define LOG(x) (cerr << #x << " = " << (x) << endl)
+#else
+#  define LOG(x) ((void)0)
+#endif
+
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double ld;
