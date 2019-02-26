@@ -23,9 +23,9 @@ struct rolling_hash {
 		}
 	}
 	
-	ll base_hash(ll l, ll r) { //mod should be prime for this
+	ll base_hash(ll l, ll r) {
 		ll hsh=(lst[r]-(l>0?lst[l-1]:0)+mod);
-		return (hsh*fastpow(hatv[l], mod-2, mod))%mod;
+		return (hsh*hatv[sz(t)-l-1])%mod; //így mindig sz(t)-1 hatványon van
 	}
 	
 	bool probably_equal(ll l1, ll r1, ll l2, ll r2) {				
