@@ -1,11 +1,3 @@
-/*
-ID: noszaly1
-TASK: {TASK}
-LANG: C++11               
-*/
-
-//Noszály Áron 11o Debreceni Fazekas Mihály Gimnázium
-
 #include<iostream>
 #include<vector>
 #include<map>
@@ -46,7 +38,9 @@ typedef long long ll;
 typedef unsigned long long ull;
 typedef long double ld;
 
-const double PI=acos(-1);
+const double PI=3.1415926535897932384626433832795;
+const ll INF = 1LL<<62;
+const ll MINF = -1LL<<62;
 
 template<typename T> T getint() {
 	T val=0;
@@ -66,8 +60,6 @@ template<typename T> T getint() {
 
 int main() {
 	IO;
-	freopen("{TASK}.in", "r", stdin);
-	freopen("{TASK}.out", "w", stdout);
-	
+
 	return 0;
 }

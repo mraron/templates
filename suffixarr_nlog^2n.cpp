@@ -18,7 +18,7 @@ vector<int> suffix_array(string& t) {
 			yy[sarr[i]]=(sarr[i]+j>=sz(t))?0:rang[sarr[i]+j];
 		}
 		
-		sort(sarr.begin(), sarr.end(), [xx, yy](int a, int b) -> bool {
+		sort(sarr.begin(), sarr.end(), [&](int a, int b) -> bool {
 			if(xx[a]==xx[b]) {
 				if(yy[a]==yy[b]) {
 					return a>b;

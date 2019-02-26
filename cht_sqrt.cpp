@@ -78,7 +78,7 @@ struct sqrt_CHT {
 			ans=min(ans, i.xx*x+i.yy);
 		}
 
-		if(hull.empty()) return ans;
+		if(hull.empty()) return mn*ans;
 		
 		int L=0, R=sz(hull)-1;
 		while(L<R) {

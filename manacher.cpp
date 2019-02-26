@@ -8,13 +8,13 @@ string expand(string& t) {
 	return res;
 }
 
-vector<int> manacher(string t) {
+vector<int> manacher(string& t) {
 	vector<int> p(sz(t));
 	int c=0, r=0;
 	
 	for(int i=0;i<sz(t);++i) {
 		int mirror=c-(i-c);
-		if(mirror>=0 && p[mirror]<r-i) {
+		if(mirror>=0 && i+p[mirror]<r) {
 			p[i]=p[mirror];
 		}else {
 			p[i]=r-i;

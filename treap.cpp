@@ -84,6 +84,14 @@ pTreap kthquery(pTreap& root, int k) {
 	return kthquery(root->L, k);
 }
 
+int smaller_or_equal_count(pTreap& root, int val) {
+	if(root==NULL) return 0;
+	if(root->key<=val) {
+		return meret(root->L)+1+smaller_or_equal_count(root->R, val); 
+	}
+	return smaller_or_equal_count(root->L, val);
+}
+
 void print(pTreap root) {
 	if(root==NULL) return ;
 	print(root->L);
