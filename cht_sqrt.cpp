@@ -30,28 +30,26 @@ struct sqrt_CHT {
 	//
 	
 	void insert(line a) {
+		static auto cmp = [](const line& a, const line& b) -> bool {
+			if(a.xx==b.xx) {
+				return a.yy>b.yy;
+			}
+			
+			return a.xx>b.xx;
+		};
+		
 		a.xx*=mn;a.yy*=mn;
 		
 		reserve.pb(a);
 		
-		if(sz(reserve)>=blksz) {
-			for(auto i:reserve) {
-				hull.pb(i);
-			}
-			
-			reserve.resize(0);
-			
-			sort(all(hull), [](const line& a, const line& b) -> bool {
-				if(a.xx==b.xx) {
-					return a.yy>b.yy;
-				}
-				
-				return a.xx>b.xx;
-			});
-			
+		if(sz(reserve)>=blksz) { 
 			vector<line> nhull;
-			for(auto i:hull) {
-				nhull.pb(i);
+			for(int i=0,j=0;i<sz(hull)||j<sz(reserve);) {
+				if(i<sz(hull) && (j==sz(reserve) || (j<sz(reserve) && cmp(hull[i], reserve[j])))) {
+					nhull.pb(hull[i++]);
+				}else {
+					nhull.pb(reserve[j++]);
+				}
 				
 				while((sz(nhull)>=2 && nhull[sz(nhull)-1].xx==nhull[sz(nhull)-2].xx) ||
 				      (sz(nhull)>=3 && !optimal(nhull[sz(nhull)-3], nhull[sz(nhull)-2], nhull[sz(nhull)-1]))) {
@@ -62,7 +60,8 @@ struct sqrt_CHT {
 					nhull.pb(tmp);
 				}
 			}
-			
+		
+			reserve.resize(0);
 			hull.swap(nhull);
 		}
 	}

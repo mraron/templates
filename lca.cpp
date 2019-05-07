@@ -3,22 +3,21 @@ const int MAXN=100001, hgt=22;
 int par[MAXN], b[MAXN], lvl[MAXN], sz[MAXN];
 int dp[MAXN][hgt];
 
-void dfs_lca(int x, int p=-1, int lev=0) {
+void dfs_lca(int x) {
 	b[x]=1;
-	par[x]=p;
-	lvl[x]=lev;
 	sz[x]=1;
 	
 	for(auto i:adj[x]) {
 		if(!b[i]) {
-			dfs_lca(i,x,lev+1);
+			par[i]=x;
+			lvl[i]=lvl[x]+1;
+			dfs_lca(i);
 			sz[x]+=sz[i];
 		}
 	}
 	
 	b[x]=2;
 }
-
 void init_lca() {
 	memset(dp, -1, sizeof dp);
 	
@@ -36,6 +35,7 @@ void init_lca() {
 }
 
 int lca(int p, int q) {
+	if(p==q) return p;
 	if(lvl[p]>lvl[q]) swap(p,q);
 	for(int i=hgt-1;i>=0;i--) {
 		if(dp[q][i]!=-1 && lvl[p]<=lvl[dp[q][i]]) q=dp[q][i];
@@ -51,6 +51,33 @@ int lca(int p, int q) {
 	}
 	
 	return dp[p][0];
+}
+
+
+pair<int,int> lca2(int& a, int& b) {
+	int p=a, q=b;
+	if(lvl[p]>lvl[q]){
+		 swap(p,q);
+		 swap(a,b);
+	 }
+	for(int i=hgt-1;i>=0;i--) {
+		if(dp[q][i]!=-1 && lvl[p]<lvl[dp[q][i]]) q=dp[q][i];
+	}
+	
+	if(lvl[p]!=lvl[q]) {
+		if(p==par[q]) return {q,q};
+		q=par[q];
+	}
+	
+	assert(lvl[p]==lvl[q]);
+	for(int i=hgt-1;i>=0;i--) {
+		if(dp[q][i]!=-1 && dp[q][i]!=dp[p][i]) {
+			p=dp[p][i];
+			q=dp[q][i];
+		}
+	}
+	
+	return {p,q};
 }
 
 int kth(int p, int k) {

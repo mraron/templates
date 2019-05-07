@@ -17,6 +17,9 @@
 #include<cstdio>
 #include<cstdlib>
 #include<numeric>
+#include<random>
+#include<chrono>
+#include<bitset>
 using namespace std;
 
 #define all(x) (x).begin(), (x).end()
@@ -57,6 +60,9 @@ template<typename T> T getint() {
 
 	return val*(neg?-1:1);
 }
+
+//mt19937 rng(chrono::steady_clock::now().time_since_epoch().count()); uniform_int_distribution<int>(0, n-1)(rng)
+
 
 int main() {
 	IO;

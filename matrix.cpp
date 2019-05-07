@@ -1,3 +1,58 @@
+//kompakt
+typedef unsigned int ui;
+template <typename T, size_t N, size_t M>
+struct Matrix {
+	vector<T> t[N];
+	Matrix() {
+		for(ui i=0;i<N;++i) t[i].resize(M);
+	}
+	
+	const vector<T>& operator[](size_t x) const {
+		return t[x];
+	}
+	
+	Matrix(initializer_list<T> lst) {
+		int ind=0;
+		for(ui i=0;i<N;++i) {
+			t[i].resize(M);
+			for(ui j=0;j<M;++j) {
+				t[i][j]=*(lst.begin()+ind++);
+			}
+		}
+	}
+	
+	Matrix<T,N,M> operator+(const Matrix<T,N,M>& masik) { Matrix<T,N,M> res; for(ui i=0;i<N;++i) for(ui j=0;j<M;++j) res.t[i][j]=t[i][j]+masik.t[i][j]; return res;}
+	Matrix<T,N,M> operator-(const Matrix<T,N,M>& masik) { Matrix<T,N,M> res; for(ui i=0;i<N;++i) for(ui j=0;j<M;++j) res.t[i][j]=t[i][j]-masik.t[i][j]; return res;}
+
+	Matrix<T,N,M> operator%(T v) { Matrix<T,N,M> res; for(ui i=0;i<N;++i) for(ui j=0;j<M;++j) res.t[i][j]=t[i][j]%v; return res;}
+	Matrix<T,N,M> operator+(T v) { Matrix<T,N,M> res; for(ui i=0;i<N;++i) for(ui j=0;j<M;++j) res.t[i][j]=t[i][j]+v; return res;}
+	Matrix<T,N,M> operator-(T v) { Matrix<T,N,M> res; for(ui i=0;i<N;++i) for(ui j=0;j<M;++j) res.t[i][j]=t[i][j]-v; return res;}
+	Matrix<T,N,M> operator*(T v) { Matrix<T,N,M> res; for(ui i=0;i<N;++i) for(ui j=0;j<M;++j) res.t[i][j]=t[i][j]*v; return res;}
+
+	Matrix<T,N,M>& operator%=(T v) { for(ui i=0;i<N;++i) for(ui j=0;j<M;++j) t[i][j]=t[i][j]%v; return *this;}
+	Matrix<T,N,M>& operator+=(T v) { for(ui i=0;i<N;++i) for(ui j=0;j<M;++j) t[i][j]=t[i][j]+v; return *this;}
+	Matrix<T,N,M>& operator-=(T v) { for(ui i=0;i<N;++i) for(ui j=0;j<M;++j) t[i][j]=t[i][j]-v; return *this;}
+	Matrix<T,N,M>& operator*=(T v) { for(ui i=0;i<N;++i) for(ui j=0;j<M;++j) t[i][j]=t[i][j]*v; return *this;}
+	
+	template<size_t P>
+	Matrix<T,N,P> operator*(const Matrix<T,M,P>& masik) {
+		Matrix<T,N,P> res;
+		for(ui i=0;i<N;++i) {
+			for(ui j=0;j<P;++j) {
+				T curr=0;
+				for(ui k=0;k<M;++k) {
+					curr+=t[i][k]*masik.t[k][j];
+				}
+				
+				res.t[i][j]=curr;
+			}
+		}
+		
+		return res;
+	}
+};
+
+
 //dinamikus matrix
 
 template<typename T> 
