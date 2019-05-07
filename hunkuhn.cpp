@@ -44,4 +44,41 @@ struct HunKuhn {
 		
 		return res;
 	}
+	
+	vector<int> vL, vR;
+	void dfs2(int x) {
+		if(vL[x]) return ;
+		
+		vL[x]=1;
+		for(int i:adj[x]) {
+			if(!vR[i]) {
+				
+				vR[i]=1;
+				if(R[i]!=-1) dfs2(R[i]);
+			}
+		}
+	}
+	
+	pair<vector<int>,vector<int>> minimal_vertex_cover() {
+		int n=L.size(), m=R.size();
+
+		vL.assign(n, 0);
+		vR.assign(m, 0);
+	
+		for(int i=0;i<n;++i) {
+			if(L[i]==-1) dfs2(i);
+		}
+		
+		pair<vector<int>, vector<int>> res;
+		
+		for(int i=0;i<n;++i) {
+			if(!vL[i]) res.xx.pb(i);
+		}
+		
+		for(int i=0;i<m;++i) {
+			if(vR[i]) res.yy.pb(i);
+		}
+		
+		return res;
+	}
 };
