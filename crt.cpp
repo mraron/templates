@@ -26,3 +26,10 @@ pair<ll,ll> crt(vector<pair<ll,ll>>& t) {
     
     return sol;
 }
+
+ll inverse(ll a, ll m) {
+	ll x,y;
+	extended_gcd(a,m,&x,&y);
+	assert((x*a-1)%m==0);
+	return x;
+}
