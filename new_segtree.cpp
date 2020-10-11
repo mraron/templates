@@ -1,3 +1,5 @@
+//@TODO null_elem helyett index és -1 ha null elem
+//@TODO templatew
 struct Node {
 	ll sum, lazy;
 	

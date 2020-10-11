@@ -1,16 +1,19 @@
+template<typename T>
 struct fenwick {
-	int arr[MAXN];
+	vector<T> arr;
 	
-	fenwick() {memset(arr,0,sizeof arr);}
+	fenwick(size_t sz) {
+		arr.assign(sz,0);
+	}
 	
-	void incr(int x, int by) {
-		for(;x<MAXN;x+=(x&(-x))) {
+	void incr(size_t x, T by) {
+		for(;x<arr.size();x+=(x&(-x))) {
 			arr[x]+=by;
 		}
 	} 
 	
-	int sum(int x) {
-		int sum=0;
+	T sum(T x) {
+		T sum=0;
 		for(;x>0;x-=(x&(-x))) {
 			sum+=arr[x];
 		}
