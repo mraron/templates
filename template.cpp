@@ -20,10 +20,14 @@
 #include<random>
 #include<chrono>
 #include<bitset>
+#include<ext/pb_ds/assoc_container.hpp>
+#include<ext/pb_ds/tree_policy.hpp>
 using namespace std;
+using namespace __gnu_pbds;
 
 #define all(x) (x).begin(), (x).end()
 #define pb push_back
+#define eb emplace_back
 #define xx first
 #define yy second
 #define sz(x) (int)(x).size()
@@ -37,13 +41,15 @@ using namespace std;
 #  define LOG(x) ((void)0)
 #endif
 
-typedef long long ll;
-typedef unsigned long long ull;
-typedef long double ld;
+using ll = long long;
+using ull = unsigned long long ;
+using ld = long double ;
+using str = string;
+using ordered_set=tree<pair<int,int>, null_type, less<pair<int,int>>, rb_tree_tag, tree_order_statistics_node_update>;
 
-const double PI=3.1415926535897932384626433832795;
+const double PI=acos(-1);
 const ll INF = 1LL<<62;
-const ll MINF = -1LL<<62;
+const ll MINF = -(1LL<<62);
 
 template<typename T> T getint() {
 	T val=0;

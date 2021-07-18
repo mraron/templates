@@ -1,4 +1,4 @@
-vector<int> calc_next(vector<int>& t, bool cmp(int, int), bool rev=false) {
+vector<int> calc_next(vector<int>& t, function<bool(int,int)>, bool rev=false) {
 	if(rev) reverse(all(t));
 	vector<int> ans(sz(t));
 	

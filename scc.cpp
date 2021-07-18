@@ -5,7 +5,7 @@ struct SCC {
 	vector<int> ord;
 	vector<int> scc, scc_sz, scc_root, b;
 	
-	SCC(int n_) : n(n_), sid(1), adj(n_), badj(n_), scc(n_), scc_sz(n_), scc_root(n_), b(n) {}
+	SCC(int n_) : n(n_), sid(0), adj(n_), badj(n_), scc(n_), scc_sz(n_), scc_root(n_), b(n) {}
 	
 	void clear() {
 		sid=0;
