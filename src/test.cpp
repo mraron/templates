@@ -2,3 +2,4 @@
 #include "catch.hpp"
 
 #include "strings/kmp_tests.hpp"
+#include "strings/suffixarr_tests.hpp"
