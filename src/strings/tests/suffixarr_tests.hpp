@@ -1,7 +1,7 @@
-#include "../catch.hpp"
-#include "../template.hpp"
+#include "../../catch.hpp"
+#include "../../template.hpp"
 
-#include "suffixarr.hpp"
+#include "../suffixarr.hpp"
 
 TEST_CASE("suffix_array construction") {
     suffix_array sa("asd");

@@ -1,7 +1,7 @@
-#include "../catch.hpp"
-#include "../template.hpp"
+#include "../../catch.hpp"
+#include "../../template.hpp"
 
-#include "kmp.hpp"
+#include "../kmp.hpp"
 
 TEST_CASE("LPS calculation") {
     string pat="";

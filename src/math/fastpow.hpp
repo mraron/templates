@@ -1,10 +1,9 @@
 #include "../template.hpp"
 
+#ifndef _FASTPOW_HPP
+#define _FASTPOW_HPP
+
 const int mod=1e9+7;
-template<typename T> 
-T fastpow(T a, int b) {
-	return fastpow<T>(a, b, mod);
-}
 
 template<typename T> 
 T fastpow(T a, int b, T mod) {
@@ -20,3 +19,10 @@ T fastpow(T a, int b, T mod) {
 
 	return ans;
 }
+
+template<typename T> 
+T fastpow(T a, int b) {
+	return fastpow<T>(a, b, (T)mod);
+}
+
+#endif //_FASTPOW_HPP

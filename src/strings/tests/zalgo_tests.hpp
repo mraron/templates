@@ -1,7 +1,7 @@
-#include "../catch.hpp"
-#include "../template.hpp"
+#include "../../catch.hpp"
+#include "../../template.hpp"
 
-#include "zalgo.hpp"
+#include "../zalgo.hpp"
 
 TEST_CASE("Z calculation") {
     string s;
