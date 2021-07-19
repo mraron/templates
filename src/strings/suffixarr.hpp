@@ -43,7 +43,7 @@ struct suffix_array {
 			inv[sarr[1]]=1;
 			for(int i=2;i<=sz(t);++i) {
 				int a=sarr[i-1], b=sarr[i];
-				if(inv_orig[a] == inv_orig[b] && (a+len>sz(t) || b+len>sz(t) || inv_orig[a+len]==inv_orig[b+len])) {
+				if(inv_orig[a]==inv_orig[b] && (a+len>sz(t) || b+len>sz(t) || inv_orig[a+len]==inv_orig[b+len])) {
 					inv[b]=inv[a];
 				}else {
 					inv[b]=i;

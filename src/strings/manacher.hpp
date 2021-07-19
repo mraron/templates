@@ -1,4 +1,8 @@
-string expand(string& t) {
+#include "../template.hpp"
+
+namespace manacher {
+
+string expand(const string& t) {
 	string res="?";
 	for(auto i:t) {
 		res.push_back(i);
@@ -8,7 +12,7 @@ string expand(string& t) {
 	return res;
 }
 
-vector<int> manacher(string& t) {
+vector<int> manacher(const string& t) {
 	vector<int> p(sz(t));
 	int c=0, r=0;
 	
@@ -30,4 +34,6 @@ vector<int> manacher(string& t) {
 	}
 	
 	return p;
+}
+
 }
