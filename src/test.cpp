@@ -6,3 +6,5 @@
 #include "strings/tests/zalgo_tests.hpp"
 
 #include "math/tests/fastpow_tests.hpp"
+#include "math/tests/gcd_extended_tests.hpp"
+#include "math/tests/sieve_tests.hpp"

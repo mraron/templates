@@ -1,6 +1,8 @@
 #include "../template.hpp"
 
-// kasai: https://codeforces.com/blog/entry/12796?#comment-175287
+// validation: https://judge.yosupo.jp/problem/suffixarray, https://www.hackerrank.com/challenges/string-similarity/problem
+// sources: benq, https://codeforces.com/blog/entry/12796?#comment-175287
+
 struct suffix_array {
 	vector<int> sarr, inv, lcp;
 	string t;

@@ -1,3 +1,8 @@
+#include "../template.hpp"
+
+#ifndef _EGCD_HPP
+#define _EGCD_HPP
+
 ll extended_gcd(ll a, ll b, ll* x, ll* y) {
 	if(b==0) {
 		*x=1;
@@ -11,14 +16,13 @@ ll extended_gcd(ll a, ll b, ll* x, ll* y) {
 	*x=y0;
 	*y=x0-(a/b)*y0;
 	
-	assert((*x)*a+(*y)*b==gcd);
-	
 	return gcd;
 }
 
 ll inverse(ll a, ll m) {
 	ll x,y;
 	extended_gcd(a,m,&x,&y);
-	assert((x*a-1)%m==0);
 	return x;
 }
+
+#endif //_EGCD_HPP
