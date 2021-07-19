@@ -1,10 +1,10 @@
 #include "../template.hpp"
 
-namespace suffixarr {
-
+// kasai: https://codeforces.com/blog/entry/12796?#comment-175287
 struct suffix_array {
 	vector<int> sarr, inv, lcp;
-	suffix_array(string t) {
+	string t;
+	suffix_array(string t) : t(t) {
 		sarr.assign(sz(t)+1, 0);
 		inv.assign(sz(t)+1, 0);
 
@@ -52,11 +52,23 @@ struct suffix_array {
 		}
 	}
 
-	void print_dbg(string t) {
+	void calc_lcp() {
+		lcp.assign(sz(t)+1, 0);
+		for(int i=0;i<sz(t);++i) {
+			int pos=inv[i];
+			if(pos==sz(t) || pos==0) {
+				lcp[pos]=0;
+			}else {
+				int nxt=sarr[pos+1];
+				while(max(nxt, i)+lcp[pos]<sz(t) && t[i+lcp[pos]]==t[nxt+lcp[pos]]) lcp[pos]++;
+				lcp[inv[i+1]]=max(0, lcp[pos]-1);
+			}
+		}
+	}
+
+	void print_dbg() {
 		for(int i=1;i<=sz(t);++i) {
-			cerr<<t.substr(sarr[i])<<"\n";
+			cerr<<t.substr(sarr[i])<<" "<<lcp[i]<<"\n";
 		}
 	}
 };
-
-}

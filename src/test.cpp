@@ -3,3 +3,4 @@
 
 #include "strings/kmp_tests.hpp"
 #include "strings/suffixarr_tests.hpp"
+#include "strings/zalgo_tests.hpp"

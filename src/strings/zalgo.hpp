@@ -1,3 +1,7 @@
+#include "../template.hpp"
+
+namespace zalgo {
+
 vector<int> zalgo(string& str) {
 	vector<int> z(sz(str));
 	int L=0, R=0;
@@ -20,4 +24,6 @@ vector<int> zalgo(string& str) {
 	}
 	
 	return z;
+}
+
 }
