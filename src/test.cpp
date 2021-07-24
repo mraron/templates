@@ -8,3 +8,5 @@
 #include "math/tests/fastpow_tests.hpp"
 #include "math/tests/gcd_extended_tests.hpp"
 #include "math/tests/sieve_tests.hpp"
+
+#include "graph/tests/dinic_tests.hpp"
