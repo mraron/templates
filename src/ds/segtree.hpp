@@ -1,50 +1,72 @@
-//@TODO null_elem helyett index és -1 ha null elem
-//@TODO templatew
-struct Node {
-	ll sum, lazy;
-	
-	Node(ll val, bool null_elem=false) {
-		sum=val;
-		lazy=0;
-		if(null_elem) {
-			sum=0;
-			lazy=0;
+#include "../template.hpp"
+
+struct segtree {
+	struct node {
+		ll a = 0, lazy = 0; //default value
+		
+		node() {}
+		node(ll a) : a(a) {}
+		
+		void apply(int L, int R, ll x) {
+			a+=x*(R-L+1);
+		}
+
+		node operator+(const node& b) {
+			const node& a=*this;
+			
+			node res(a.a+b.a);
+			return res;
+		} 
+	};
+
+	void push(int ind, int L, int R) {
+		if(tree[ind].lazy!=0) {
+			tree[ind].apply(L, R, tree[ind].lazy);
+			if(L!=R) {
+				tree[2*ind].lazy+=tree[ind].lazy;
+				tree[2*ind+1].lazy+=tree[ind].lazy;
+			}
+			
+			tree[ind].lazy=0;
 		}
 	}
-	
-	Node operator+(const Node& masik) const {
-		Node res(sum+masik.sum);
-		return res;
-	}
-};
 
-struct SegmentTree {
+	inline void pull(int ind, int L, int R) {
+		tree[ind]=tree[2*ind]+tree[2*ind+1];
+	}
+
 	int n;
-	vector<ll> arr;
-	vector<Node> tree;
+	vector<node> tree;
 	
-	SegmentTree(vector<ll>& arr_) {
-		arr=arr_;
-		n=sz(arr);
-		tree.resize(4*n, Node(0));
+	segtree(int n) : n(n) {
+		tree.resize(4*n, node{});
 	}
 	
 	void build() {
 		build(1, 0, n-1);
 	}
 	
-	void build(int ind, int L, int R) {
+	void build(int ind, int L, int R, const vector<ll>& arr) {
 		if(L==R) {
-			tree[ind]=Node(arr[L]);
-		}else {
+			tree[ind].apply(L, R, arr[L]);
+		}else { 
+			build(2*ind, L, (L+R)/2, arr);
+			build(2*ind+1, (L+R)/2+1, R, arr);
+			
+			pull(ind, L, R);
+		}
+	}
+
+	void build(int ind, int L, int R) {
+		if(L!=R) { 
 			build(2*ind, L, (L+R)/2);
 			build(2*ind+1, (L+R)/2+1, R);
 			
-			tree[ind]=tree[2*ind]+tree[2*ind+1];
+			pull(ind, L, R);
 		}
 	}
 	
-	Node query(int i, int j) {
+	node query(int i, int j) {
 		return query(1, 0, n-1, i, j);
 	}
 	
@@ -52,23 +74,8 @@ struct SegmentTree {
 		incr(1, 0, n-1, i, j, x);
 	}
 	
-	void push(int ind, int L, int R) {
-		if(tree[ind].lazy!=0) {
-			if(L==R) {
-				tree[ind].sum+=tree[ind].lazy;
-			}else {
-				tree[2*ind].lazy+=tree[ind].lazy;
-				tree[2*ind+1].lazy+=tree[ind].lazy;
-				
-				tree[ind].sum+=(R-L+1)*tree[ind].lazy;
-				
-			}
-			tree[ind].lazy=0;
-		}
-	}
-	
-	Node query(int ind, int L, int R, int i, int j) {
-		if(R<i||j<L) return Node(0,true);
+	node query(int ind, int L, int R, int i, int j) {
+		if(R<i||j<L) return node{};
 		push(ind, L, R);
 		
 		if(i<=L && R<=j) {
@@ -80,16 +87,19 @@ struct SegmentTree {
 	
 	
 	void incr(int ind, int L, int R, int i, int j, int x) {
-		if(R<i||j<L) return ;
 		push(ind, L, R);
+		if(R<i||j<L) return ;
 		
 		if(i<=L && R<=j) {
 			tree[ind].lazy+=x;
+			push(ind, L, R);
 			return ;
 		}
 		
 	
 		incr(2*ind, L, (L+R)/2, i, j, x);
 		incr(2*ind+1, (L+R)/2+1, R, i, j, x);
+
+		pull(ind, L, R);
 	}
 };
