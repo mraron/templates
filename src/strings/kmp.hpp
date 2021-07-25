@@ -49,4 +49,25 @@ vector<int> kmp(string& pat, string& str) {
 	return res;
 }
 
+struct nxtlps {
+	const static int ALPHA=26;
+	
+	vector<int> pi;
+	string pat;
+	
+	vector<array<int,ALPHA>> nxt;
+	
+	nxtlps() {}
+	nxtlps(string& pat) : pi(lps(pat)), pat(pat) {
+		nxt.resize(sz(pat)+1);
+		for(auto& i:nxt) fill(all(i), -1);
+	}
+	
+	int go(int i, char c) {
+		if(nxt[i][c-'a']!=-1) return nxt[i][c-'a'];
+		if(i<sz(pat) && pat[i]==c) return nxt[i][c-'a']=i+1;
+		return nxt[i][c-'a']=(i==0?0:go(pi[i-1], c));
+	}
+};
+
 }
