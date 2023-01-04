@@ -1,6 +1,6 @@
 #include "../template.hpp"
 
-struct Dinic {
+struct dinic {
     const ll inf = 1LL<<60;
     struct edge {
         int from, to;
@@ -12,7 +12,7 @@ struct Dinic {
     vector<int> lvl, st, ptr;
     vector<edge> edgs;
 
-    Dinic(int n) : n(n), m(0) {
+    dinic(int n) : n(n), m(0) {
         adj.resize(n);
     }
 

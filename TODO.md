@@ -6,3 +6,5 @@
 - Suffix automaton
 - Splay tree
 - FFT, NTT
+
+- stress test initializator

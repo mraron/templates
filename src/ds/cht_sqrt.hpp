@@ -1,36 +1,23 @@
-//
-// SQRT time convex hull trick
-//
+#include "../template.hpp"
 
-typedef pair<ll,ll> line;
-
-struct sqrt_CHT {
+using line = pair<ll,ll>;
+struct sqrt_cht {
 	int mn;
 	int blksz;
 	
 	vector<line> hull, reserve;
 	
-	sqrt_CHT(bool min_, int blksz_) {
+	sqrt_cht(bool min_, int blksz_) {
 		mn=min_?1:-1;
 		blksz=blksz_;
 	}
-		
-	//
-	// Checks wheter b is optimal if a<b<c holds
-	// Complexity: O(1)
-	//
-	
+
 	bool optimal(line& a, line& b, line& c) {
 		return double(b.yy-a.yy)*double(c.xx-b.xx)>double(b.yy-c.yy)*double(a.xx-b.xx);
 	}
-	
-	//
-	// Inserts linear function into the hull
-	// Complexity: O(1) if reserve is not full else O(sz(hull) log sz(hull) + blksz)
-	//
-	
+    	
 	void insert(line a) {
-		static auto cmp = [](const line& a, const line& b) -> bool {
+		auto cmp = [](const line& a, const line& b) -> bool {
 			if(a.xx==b.xx) {
 				return a.yy>b.yy;
 			}
@@ -43,7 +30,11 @@ struct sqrt_CHT {
 		reserve.pb(a);
 		
 		if(sz(reserve)>=blksz) { 
+            sort(all(reserve), cmp);
+            
 			vector<line> nhull;
+            nhull.reserve(hull.size()+reserve.size());
+            
 			for(int i=0,j=0;i<sz(hull)||j<sz(reserve);) {
 				if(i<sz(hull) && (j==sz(reserve) || (j<sz(reserve) && cmp(hull[i], reserve[j])))) {
 					nhull.pb(hull[i++]);
@@ -66,11 +57,6 @@ struct sqrt_CHT {
 		}
 	}
 	
-	
-	//
-	// Gets the optimal (minimal or maximal) value of inserted function at a given x point
-	// Complexity: O(log(sz(hull)) + blksz)
-	//
 	ll get(ll x) {
 		ll ans=1LL<<62;
 		for(auto i:reserve) {
@@ -95,8 +81,5 @@ struct sqrt_CHT {
 		
 		return ans*mn;
 	}
-	
-	private: 
 };
-
 

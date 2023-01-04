@@ -70,7 +70,7 @@ struct segtree {
 		return query(1, 0, n-1, i, j);
 	}
 	
-	void incr(int i, int j, int x) {
+	void incr(int i, int j, ll x) {
 		incr(1, 0, n-1, i, j, x);
 	}
 	
@@ -86,7 +86,7 @@ struct segtree {
 	}
 	
 	
-	void incr(int ind, int L, int R, int i, int j, int x) {
+	void incr(int ind, int L, int R, int i, int j, ll x) {
 		push(ind, L, R);
 		if(R<i||j<L) return ;
 		

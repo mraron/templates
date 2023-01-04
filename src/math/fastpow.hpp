@@ -3,11 +3,10 @@
 #ifndef _FASTPOW_HPP
 #define _FASTPOW_HPP
 
-const int mod=1e9+7;
+const ll mod=1e9+7;
 
-template<typename T> 
-T fastpow(T a, int b, T mod) {
-	T ans=1, mul=a;
+ll fastpow(ll a, ll b, ll mod) {
+	ll ans=1, mul=a%mod;
 	while(b>0) {
 		if(b&1) {
 			ans=ans*mul%mod;
@@ -20,9 +19,8 @@ T fastpow(T a, int b, T mod) {
 	return ans;
 }
 
-template<typename T> 
-T fastpow(T a, int b) {
-	return fastpow<T>(a, b, (T)mod);
+ll fastpow(ll a, ll b) {
+	return fastpow(a, b, mod);
 }
 
 #endif //_FASTPOW_HPP

@@ -1,6 +1,8 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
+#include "ds/tests/treap_tests.hpp"
+
 #include "strings/tests/kmp_tests.hpp"
 #include "strings/tests/suffixarr_tests.hpp"
 #include "strings/tests/zalgo_tests.hpp"

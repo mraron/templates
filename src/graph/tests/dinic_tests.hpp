@@ -4,7 +4,7 @@
 #include "../dinic.hpp"
 
 TEST_CASE("dinic basic flow") {
-    Dinic mf(5);
+    dinic mf(5);
     mf.add_edge(1,2,1);
     mf.add_edge(2,3,2);
     mf.add_edge(3,4,1);

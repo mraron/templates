@@ -1,100 +1,90 @@
+#include "../template.hpp"
 
-struct Treap {
-	int key, pri;
-	int sz;
+
+//rewrite
+template<typename T>
+struct treap {
+	struct node {
+		node *L, *R;
+		
+		T key;
+		int pri;
+		
+		node(T t) : L(nullptr), R(nullptr), key(t) {
+			pri=rand()%int(1e9); //windows may have 16bit range...
+		}
+	};
 	
-	Treap *L,*R;
+	node* root=nullptr;
+	void split(node* root, node*& L, node*& R, T key) {
+		if(root==nullptr) {
+			L=R=nullptr;
+			return ;
+		}
+		
+		if(root->key<key) {
+			split(root->R, root->R, R, key);L=root;
+		}else {
+			split(root->L, L, root->L, key);R=root;
+		}
+	}
 	
-	Treap() {}
+	void merge(node*& root, node* L, node* R) {
+		if(L==nullptr) {
+			root=R;
+			return ;
+		}else if(R==nullptr) {
+			root=L;
+			return ;
+		}
+		
+		if(L->pri<R->pri) {
+			merge(L->R, L->R, R);root=L;
+		}else {
+			merge(R->L, L, R->L);root=R;
+		}
+	}
 	
-	Treap(int item) : L(NULL), R(NULL) {
-		key=item;
-		pri=rand();
+	void insert(T elem) {
+		node* e=new node(elem);
+		insert(root, e);
+	}
+	
+	void insert(node*& root, node* elem) {
+		if(root==nullptr) {
+			root=elem;
+			return ;
+		}
+		
+		if(elem->pri<root->pri) {
+			split(root, elem->L, elem->R, root->key);
+			root=elem;
+			return ;
+		}
+		
+		if(elem->key<root->key) insert(root->L, elem);
+		else insert(root->R, elem);
+	}
+	
+	node* lower_bound(node* root, T elem) {
+		if(root==nullptr) return nullptr;
+		if(root->key<elem) return lower_bound(root->L, elem);
+		return lower_bound(root->R, elem);
+	}
+	
+	bool erase(T elem) {
+		return erase(root, elem);
+	}
+	
+	bool erase(node*& root, T elem) {
+		if(root==nullptr) return false;
+		if(!(root->key<elem) && !(elem<root->key)) {
+			merge(root, root->L, root->R);
+			return true;
+		}
+		
+		bool deleted=(elem<root->key?erase(root->L, elem):erase(root->R, elem));
+		
+		return deleted;
 	}
 };
-
-typedef Treap * pTreap;
-
-void update(pTreap& root) {
-	if(root==NULL) return ;
-	
-	root->sz=(root->L==NULL?0:root->L->sz)+(root->R==NULL?0:root->R->sz)+1;
-}
-
-void split(pTreap root, int key, pTreap& L, pTreap& R) {
-	if(root==NULL) {
-		L=NULL;
-		R=NULL;
-	}else if(key < root->key) {
-		split(root->L, key, L, root->L);
-		R=root;
-	}else {
-		split(root->R, key, root->R, R);
-		L=root;	
-	}
-	
-	update(root);
-}
-
-void insert(pTreap& root, pTreap item) {
-	if(root==NULL) {
-		root=item;
-	}else if(root->pri < item->pri) {
-		split(root, item->key, item->L, item->R);
-		root=item;
-	}else {
-		insert(item->key < root->key ? root->L : root->R, item);
-	}
-	
-	update(root);
-}
-
-void merge(pTreap& root, pTreap L, pTreap R) {
-	if(L==NULL || R==NULL) {
-		root=(L!=NULL?L:R);
-	}else if(L->pri < R->pri) {
-		merge(R->L, L, R->L);
-		root=R;
-	}else {
-		merge(L->R, L->R, R);
-		root=L;
-	}
-	
-	update(root);
-}
-
-void erase(pTreap& root, int key) {
-	if(root->key == key) {
-		merge(root, root->L, root->R);
-	}else {
-		erase(key< root->key ? root->L : root->R, key);
-	}
-	
-	update(root);
-}
-
-int meret(pTreap root) {
-	if(root==NULL) return 0;
-	return root->sz;
-}
-
-pTreap kthquery(pTreap& root, int k) {
-	if(meret(root->L)==k-1) return root;
-	else if(meret(root->L)<k-1) return kthquery(root->R, k-meret(root->L)-1);
-	return kthquery(root->L, k);
-}
-
-int smaller_or_equal_count(pTreap& root, int val) {
-	if(root==NULL) return 0;
-	if(root->key<=val) {
-		return meret(root->L)+1+smaller_or_equal_count(root->R, val); 
-	}
-	return smaller_or_equal_count(root->L, val);
-}
-
-void print(pTreap root) {
-	if(root==NULL) return ;
-	print(root->L);
-	cout<<root->key<<" ";
-	print(root->R);
-}
